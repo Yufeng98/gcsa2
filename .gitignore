@@ -43,3 +43,15 @@ gcsa2_pruned_index.pdf
 
 # vscode
 .vscode
+
+# Datasets
+*.gz
+*.gz.tbi
+*.vg
+*.graph
+*.txt
+*.gcsa
+*.fa
+*.fai
+*.lcp
+benchmark/reads_*
