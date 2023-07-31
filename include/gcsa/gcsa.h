@@ -115,6 +115,13 @@ public:
     return this->find(pattern.begin(), pattern.end());
   }
 
+  void inner_find(int index, uint64_t do_update) 
+  {
+    range_type tmp_range = this->find(this->patterns[index]);
+    if (do_update) this->new_range = tmp_range;
+  }
+
+
   template<class Element>
   range_type find(const Element* pattern, size_type length) const
   {
@@ -209,6 +216,10 @@ public:
 
   inline node_type sample(size_type i) const { return this->stored_samples[i]; }
 
+  range_type get_new_range() {return this->new_range; }
+
+  void push_back_pattern(std::string pattern) { this->patterns.push_back(pattern); }
+
 //------------------------------------------------------------------------------
 
   GCSAHeader                              header;
@@ -242,6 +253,8 @@ public:
 //------------------------------------------------------------------------------
 
 private:
+  std::vector<std::string> patterns;
+  range_type new_range;
   void copy(const GCSA& source);
   void setVectors();
   void initSupport();

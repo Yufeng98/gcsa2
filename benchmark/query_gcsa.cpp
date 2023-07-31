@@ -79,6 +79,7 @@ main(int argc, char** argv)
 
   std::vector<std::string> patterns;
   size_type pattern_total = readRows(pattern_name, patterns, true);
+  for (size_type j = 0; j < patterns.size(); j++) index.push_back_pattern(patterns[j]);
   pattern_total -= filter(patterns);
   printHeader("Patterns");
   std::cout << patterns.size() << " (total " << inMegabytes(pattern_total) << " MB)" << std::endl;
@@ -91,7 +92,9 @@ main(int argc, char** argv)
     size_type total = 0;
     for(size_type i = 0; i < patterns.size(); i++)
     {
-      range_type temp = index.find(patterns[i]);
+      // range_type temp = index.find(patterns[i]);
+      index.inner_find(i, 1);
+      range_type temp = index.get_new_range();
       if(!Range::empty(temp)) { ranges.push_back(temp); lengths.push_back(patterns[i].length()); }
       total += Range::length(temp);
     }
